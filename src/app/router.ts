@@ -7,6 +7,11 @@ import { listCategories } from './useCases/categories/listCategories'
 import { createCategory } from './useCases/categories/createCategory'
 import { listProducts } from './useCases/products/listProducts'
 import { createProduct } from './useCases/products/createProducts'
+import { listProductsByCategory } from './useCases/categories/listProductsByCategory'
+import { listOrders } from './useCases/orders/listOrders'
+import { createOrder } from './useCases/orders/createOrder'
+import { changeOrderStatus } from './useCases/orders/changeOrderStatus'
+import { cancelOrder } from './useCases/orders/cancelOrder'
 export const router = Router()
 
 const upload = multer({
@@ -33,26 +38,16 @@ router.get('/products', listProducts)
 router.post('/products', upload.single('image'), createProduct)
 
 //Get products by category
-router.get('/categories/:categoryId/products', (req, res) => {
-	res.send('Lista de produtos por categoria')
-})
+router.get('/categories/:categoryId/products', listProductsByCategory)
 
 // List orders
-router.get('/orders', (req, res) => {
-	res.send('Lista de pedidos')
-})
+router.get('/orders', listOrders)
 
 // Create order
-router.post('/orders', (req, res) => {
-	res.send('Criando pedido')
-})
+router.post('/orders', createOrder)
 
 //Change order status
-router.patch('/orders/:orderId', (req, res) => {
-	res.send('Alterando status do pedido')
-})
+router.patch('/orders/:orderId', changeOrderStatus)
 
 // Delete/Cancel order
-router.delete('/orders/:orderId', (req, res) => {
-	res.send('Deletando pedido')
-})
+router.delete('/orders/:orderId', cancelOrder)
